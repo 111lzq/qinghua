@@ -68,7 +68,9 @@ axios.post('http://47.109.111.80:3000/search', {
                     <li>科学研究</li>
                     <li>招生就业</li>
                     <li>合作交流</li>
-                    <li>走进清华</li>
+                    <router-link to="/walk">
+                        <li>走进清华</li>
+                    </router-link>
                 </ul>
             </div>
         </div>
