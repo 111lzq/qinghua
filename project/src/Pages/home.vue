@@ -1,13 +1,13 @@
 <script setup>
-import { ref, reactive} from 'vue';
+import { ref, reactive } from 'vue';
 import axios from 'axios';
-let swiper=ref('');
-let hotwords=ref('');
+let swiper = ref('');
+let hotwords = ref('');
 axios.post('http://47.109.111.80:3000/swipers', {
 })
     .then(response => {
         swiper.value = response.data
-
+        console.log(swiper.value)
     })
     .catch(error => {
         console.log('请求失败')
@@ -29,7 +29,7 @@ axios.post('http://47.109.111.80:3000/search', {
 
 
 <template>
-        <header>
+    <header>
         <div class="linear"></div>
         <div class="button">
             <img src="../image/summery/navA.png" alt="" srcset="" />
@@ -57,8 +57,12 @@ axios.post('http://47.109.111.80:3000/search', {
                     </li>
                 </ul>
                 <ul class="header-rt-bot">
-                    <router-link to="/news"><li>清华新闻</li></router-link>
-                    <router-link to="/summery"><li>学校概况</li></router-link>
+                    <router-link to="/news">
+                        <li>清华新闻</li>
+                    </router-link>
+                    <router-link to="/summery">
+                        <li>学校概况</li>
+                    </router-link>
                     <li>院系设置</li>
                     <li>教育教学</li>
                     <li>科学研究</li>
@@ -70,55 +74,82 @@ axios.post('http://47.109.111.80:3000/search', {
         </div>
     </header>
 
-<van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-  <van-swipe-item v-for="item,index in swiper" :key="item.id"><img :src="item.img" alt=""></van-swipe-item>
-</van-swipe>
+    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+        <van-swipe-item v-for="item, index in swiper" :key="item.id">
+            <img :src="item.img" alt="">
+            <div class="tit">{{ item.title }}</div>
+        </van-swipe-item>
+    </van-swipe>
 
-<div class="bar">
-    <input type="text" placeholder="快速探索Tsinghua University">
-    <div class="hotwords">
-        <ul>
-            <li>高频搜索内容 &nbsp;></li>
-            <li v-for="item in hotwords" :key="item.id">{{ item.textthree }}</li>
-        </ul>
+    <div class="bar">
+        <input type="text" placeholder="快速探索Tsinghua University">
+        <div class="hotwords">
+            <ul>
+                <li class="name">高频搜索内容 &nbsp;></li>
+                <li v-for="item in hotwords" :key="item.id">{{ item.textthree }}</li>
+            </ul>
+        </div>
     </div>
-</div>
 </template>
 <style scoped>
-.bar .hotwords li:nth-last-child(1){
+van-swipe van-swipe-item{
+    position: relative;
+}
+.bar .hotwords .name {
+    color: #777;
+}
+
+.my-swipe .tit {
+    width: 585px;
+    height: 70px;
+    position: absolute;
+    bottom: 100px;
+    left: calc((100% - 585px)/2);
+    line-height: 68px;
+    z-index: 2;
+    font-size: 23px;
+}
+
+.bar .hotwords li:nth-last-child(1) {
     width: 300px;
 }
-.bar .hotwords li{
+
+.bar .hotwords li {
     width: 94px;
     height: 100%;
     font-size: 13px;
     text-align: left;
     line-height: 35px;
 }
-.bar .hotwords ul{
+
+.bar .hotwords ul {
     width: 100%;
     height: 100%;
     display: flex;
     flex-wrap: nowrap;
 }
-.bar .hotwords{
+
+.bar .hotwords {
     width: 100%;
     height: 35px;
     position: absolute;
     bottom: -35px;
 }
-.bar input::placeholder{
+
+.bar input::placeholder {
     font-size: 25px;
     color: #C19FDE;
 }
-.bar input{
+
+.bar input {
     width: 876px;
     height: 65px;
     border: none;
     border-bottom: 2px solid #791cb5;
     line-height: 65px;
 }
-.bar{
+
+.bar {
     width: 1000px;
     height: 70px;
     background-color: white;
@@ -128,31 +159,34 @@ axios.post('http://47.109.111.80:3000/search', {
     display: flex;
     justify-content: center;
 }
-.my-swipe{
+
+.my-swipe {
     height: 100vh;
-    
 }
+
 .my-swipe .van-swipe-item {
     color: #fff;
     font-size: 20px;
     line-height: 150px;
     text-align: center;
     background-color: #39a9ed;
-  }
+}
 
 
 /* 上-轮播图 */
-.top .logo{
+.top .logo {
     position: relative;
     left: 5%;
     top: 20px;
 }
-.top{
+
+.top {
     width: 100%;
     height: 103px;
-    background:linear-gradient(to bottom,black,white);
+    background: linear-gradient(to bottom, black, white);
 }
-.top::before{
+
+.top::before {
     content: "";
     display: block;
     width: 100%;
@@ -164,81 +198,95 @@ axios.post('http://47.109.111.80:3000/search', {
     background-size: 100% 100%;
 }
 
-header .header-rt-bot li{
+header .header-rt-bot li {
     color: white;
 }
-.oragan .more:hover{
+
+.oragan .more:hover {
     color: #791cb5;
     border-bottom: 1px solid #791cb5;
 }
-.oragan .more{
+
+.oragan .more {
     width: 200px;
     height: 35px;
     margin: 70px auto;
     color: white;
     border-bottom: 1px solid white;
 }
-.oragan .sh p{
+
+.oragan .sh p {
     color: white;
     font-size: 17px;
     text-align: center;
 }
-.oragan .xia p{
+
+.oragan .xia p {
     color: white;
     font-size: 17px;
     text-align: center;
 }
-.oragan .sh h4{
+
+.oragan .sh h4 {
     font-size: 68px;
     color: white;
     text-align: center;
 }
-.oragan .xia h4{
+
+.oragan .xia h4 {
     font-size: 68px;
     color: white;
     text-align: center;
 }
-.oragan .xia li{
+
+.oragan .xia li {
     width: 282px;
     height: 100%;
 }
-.oragan .sh ul{
+
+.oragan .sh ul {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
-.oragan .xia ul{
+
+.oragan .xia ul {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
-.oragan .sh li{
+
+.oragan .sh li {
     width: 372px;
     height: 100%;
 }
-.oragan .xia{
+
+.oragan .xia {
     width: 100%;
     height: 50%;
     position: absolute;
     bottom: 0;
-    
+
 }
+
 .oragan .sh {
     width: 100%;
     height: 49%;
 }
-.oragan .num{
+
+.oragan .num {
     width: 1120px;
     height: 272px;
-    margin:0 auto;
+    margin: 0 auto;
     margin-top: 38px;
     position: relative;
 }
-.oragan h2{
+
+.oragan h2 {
     width: 1120px;
     height: 60px;
     margin: 0 auto;
@@ -246,13 +294,15 @@ header .header-rt-bot li{
     color: white;
     font-size: 32px;
 }
-.oragan .text{
+
+.oragan .text {
     width: 180px;
-    height:43px;
+    height: 43px;
     font-size: 32px;
     color: black;
 }
-.oragan .top{
+
+.oragan .top {
     width: 1128px;
     height: 131px;
     margin: 0 auto;
@@ -264,26 +314,30 @@ header .header-rt-bot li{
     align-items: center;
     justify-content: space-around;
 }
-.oragan{
+
+.oragan {
     width: 100%;
     height: 750px;
     position: relative;
     top: 632px;
     background: url('../image/summery/zg.jpg');
 }
-.two .more img{
+
+.two .more img {
     background-color: white;
 }
-.two .more span{
+
+.two .more span {
     display: block;
     width: 70px;
-     color: white;
-     font-size: 12px;
+    color: white;
+    font-size: 12px;
 }
-.two div .more{
+
+.two div .more {
     width: 433px;
     height: 77px;
-    background: linear-gradient(to right,#791CB5 60%,#2E21E3);
+    background: linear-gradient(to right, #791CB5 60%, #2E21E3);
     position: absolute;
     left: calc((100% - 433px)/2);
     display: flex;
@@ -291,7 +345,8 @@ header .header-rt-bot li{
     align-items: center;
     bottom: 20px;
 }
-.two div h2{
+
+.two div h2 {
     width: 100%;
     height: 61px;
     display: block;
@@ -301,12 +356,14 @@ header .header-rt-bot li{
     padding-bottom: 65px;
     text-indent: 2.5rem;
 }
-.two div{
+
+.two div {
     width: 541px;
     height: 231px;
     position: relative;
 }
-.two{
+
+.two {
     width: 1128px;
     height: 231px;
     margin: 0 auto;
@@ -315,7 +372,8 @@ header .header-rt-bot li{
     display: flex;
     justify-content: space-between;
 }
-.evo .list{
+
+.evo .list {
     width: 1261px;
     height: 270px;
     margin: 0 auto;
@@ -325,11 +383,13 @@ header .header-rt-bot li{
     position: relative;
     top: 130px;
 }
-.evo .more img{
+
+.evo .more img {
     display: inline-block;
     margin-left: 20px;
 }
-.evo .more{
+
+.evo .more {
     width: 110px;
     height: 20px;
     margin: 0 auto;
@@ -338,7 +398,8 @@ header .header-rt-bot li{
     text-align: left;
     border-bottom: 1px solid #791cb5;
 }
-.evo p{
+
+.evo p {
     width: 744px;
     height: 74px;
     margin: 0 auto;
@@ -349,7 +410,8 @@ header .header-rt-bot li{
     margin-top: 30px;
     margin-bottom: 40px;
 }
-.evo h2{
+
+.evo h2 {
     width: 1100px;
     height: 60px;
     margin: 0 auto;
@@ -357,7 +419,8 @@ header .header-rt-bot li{
     line-height: 60px;
     font-size: 32px;
 }
-.evo{
+
+.evo {
     width: 100%;
     height: 566px;
     background-color: #f2efef;
@@ -365,21 +428,26 @@ header .header-rt-bot li{
     top: 400px;
     padding-top: 70px;
 }
-.zc .text .bot{
+
+.zc .text .bot {
     margin-top: 25px;
 }
-.zc .text p{
+
+.zc .text p {
     font-size: 12px;
     color: #ccc;
 }
-.zc .text{
+
+.zc .text {
     width: 752px;
     height: 100%;
 }
-.zc .tit span{
+
+.zc .tit span {
     font-size: 13px;
     font-weight: 300;
 }
+
 .zc .tit {
     width: 443px;
     height: 25px;
@@ -387,18 +455,21 @@ header .header-rt-bot li{
     margin-top: 28px;
     margin-bottom: 14px;
 }
-.zc .text h2{
+
+.zc .text h2 {
     font-size: 32px;
     font-weight: 300;
 }
-.zc img{
+
+.zc img {
     width: 564px;
     height: 379px;
     position: absolute;
     right: 0;
     bottom: 0;
 }
-.zc{
+
+.zc {
     width: 1128px;
     height: 459px;
     margin: 0 auto;
@@ -406,24 +477,28 @@ header .header-rt-bot li{
     top: 400px;
     margin-top: 70px;
 }
-.banner .box li{
+
+.banner .box li {
     width: 100%;
     height: 56px;
     margin-top: 30px;
     color: white;
 }
-.banner .box span{
+
+.banner .box span {
     font-size: 45px;
     color: white;
 }
-.banner .box{
+
+.banner .box {
     width: 600px;
     height: 160px;
     position: absolute;
     bottom: 50px;
     left: 150px;
 }
-.banner{
+
+.banner {
     width: 100%;
     height: 538px;
     background: url('../image/summery/banner.jpg');
@@ -431,6 +506,7 @@ header .header-rt-bot li{
     top: 0;
     z-index: -1;
 }
+
 header {
     width: 100%;
     height: 138px;
@@ -533,5 +609,4 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-</style>
+}</style>
