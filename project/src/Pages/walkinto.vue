@@ -28,7 +28,7 @@
                 </ul>
                 <ul class="header-rt-bot">
                     <router-link to="/news"><li>清华新闻</li></router-link>
-                    <li>学校概况</li>
+                    <router-link to="/summery"><li>学校概况</li></router-link>
                     <li>院系设置</li>
                     <li>教育教学</li>
                     <li>科学研究</li>
