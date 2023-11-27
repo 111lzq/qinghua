@@ -276,7 +276,7 @@
 					<p>在学学生人数</p>
 				</div>
 				<ul class="num">
-					<!-- <li>
+					<li>
 						<p>{{data[0].numone}}</p>
 						<span>{{name.a}}</span>
 					</li>
@@ -287,9 +287,6 @@
 					<li>
 						<p>{{data[0].numthree}}</p>
 						<span>{{name.c}}</span>
-					</li> -->
-					<li v-for="item in data" :key="item.id">
-						<p>	{{item}}</p>
 					</li>
 				</ul>
 			</div>
@@ -357,13 +354,13 @@
 	import Foot from '../components/FooterView.vue'
 	import Banner from '../components/Banner.vue'
 	import axios from 'axios'
-	import {
-		ref
-	} from "vue"
+	import {ref} from "vue"
 
 	const data = ref([]);
-	const list=ref([])
-	console.log(data)
+	const message=ref([])
+	// console.log(data)
+	
+	// const message=ref([])
 	axios.post('http://47.109.111.80:3000/commun')
 		.then(response => {
 			// console.log(response.data);
@@ -372,7 +369,15 @@
 		.catch(error => {
 			console.log(error);
 		});
-
+		
+	axios.post('http://47.109.111.80:3000/rightmain')
+		.then(response => {
+			console.log(response.data);
+			// message.value = response.data
+		})
+		.catch(error => {
+			console.log(error);
+		});
 
 
 	const info = ref({

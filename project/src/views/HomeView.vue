@@ -626,6 +626,7 @@
 <script setup>
 	import Banner from '../components/Banner.vue'
 	import Footer from '../components/FooterView.vue'
+	import axios from 'axios'
 	import {
 		ref,
 		reactive
@@ -676,4 +677,25 @@
 		imgPath.value = src
 		// console.log(src)
 	}
+	// 
+	axios.post('http://47.109.111.80:3000/swipers')
+		.then(response => {
+			console.log(response.data);
+			// data.value = response.data
+		})
+		.catch(error => {
+			console.log(error);
+		});
+	
+	// 
+	axios.get('http://47.109.111.80:3000/getmiddle')
+		.then(response => {
+			console.log(response.data);
+			// data.value = response.data
+		})
+		.catch(error => {
+			console.log(error);
+		});
+		
+	
 </script>
