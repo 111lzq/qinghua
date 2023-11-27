@@ -6,17 +6,17 @@ let hotwords=ref('');
 axios.post('http://47.109.111.80:3000/swipers', {
 })
     .then(response => {
-        swiper = response.data
+        swiper.value = response.data
 
     })
     .catch(error => {
         console.log('请求失败')
     })
-    
+
 axios.post('http://47.109.111.80:3000/search', {
 })
     .then(response => {
-        hotwords = response.data
+        hotwords.value = response.data
         console.log(hotwords)
 
     })
@@ -79,17 +79,20 @@ axios.post('http://47.109.111.80:3000/search', {
     <div class="hotwords">
         <ul>
             <li>高频搜索内容 &nbsp;></li>
-            <li v-for="item in hotwords" :key="item.id">{{ item.textone }}</li>
+            <li v-for="item in hotwords" :key="item.id">{{ item.textthree }}</li>
         </ul>
     </div>
 </div>
 </template>
 <style scoped>
+.bar .hotwords li:nth-last-child(1){
+    width: 300px;
+}
 .bar .hotwords li{
-    width: 140px;
+    width: 94px;
     height: 100%;
     font-size: 13px;
-    text-align: center;
+    text-align: left;
     line-height: 35px;
 }
 .bar .hotwords ul{
