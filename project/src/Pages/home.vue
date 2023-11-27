@@ -1,11 +1,23 @@
 <script setup>
+import { ref, reactive} from 'vue';
 import axios from 'axios';
-axios.post('http://47.109.111.80:3000/api/getswipers', {
-
+let swiper=ref('');
+let hotwords=ref('');
+axios.post('http://47.109.111.80:3000/swipers', {
 })
     .then(response => {
-        let info = response.data
-        console.log(info)
+        swiper = response.data
+
+    })
+    .catch(error => {
+        console.log('请求失败')
+    })
+    
+axios.post('http://47.109.111.80:3000/search', {
+})
+    .then(response => {
+        hotwords = response.data
+        console.log(hotwords)
 
     })
     .catch(error => {
@@ -59,10 +71,7 @@ axios.post('http://47.109.111.80:3000/api/getswipers', {
     </header>
 
 <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-  <van-swipe-item>1</van-swipe-item>
-  <van-swipe-item>2</van-swipe-item>
-  <van-swipe-item>3</van-swipe-item>
-  <van-swipe-item>4</van-swipe-item>
+  <van-swipe-item v-for="item,index in swiper" :key="item.id"><img :src="item.img" alt=""></van-swipe-item>
 </van-swipe>
 
 <div class="bar">
@@ -70,19 +79,16 @@ axios.post('http://47.109.111.80:3000/api/getswipers', {
     <div class="hotwords">
         <ul>
             <li>高频搜索内容 &nbsp;></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li v-for="item in hotwords" :key="item.id">{{ item.textone }}</li>
         </ul>
     </div>
 </div>
 </template>
 <style scoped>
 .bar .hotwords li{
-    width: 155px;
+    width: 140px;
     height: 100%;
     font-size: 13px;
-    background-color: pink;
     text-align: center;
     line-height: 35px;
 }
