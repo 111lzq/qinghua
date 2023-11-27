@@ -1,3 +1,21 @@
+<script setup>
+import axios from 'axios';
+axios.post('http://47.109.111.80:3000/api/getswipers', {
+
+})
+    .then(response => {
+        let info = response.data
+        console.log(info)
+
+    })
+    .catch(error => {
+        console.log('请求失败')
+    })
+
+
+</script>
+
+
 <template>
         <header>
         <div class="linear"></div>
